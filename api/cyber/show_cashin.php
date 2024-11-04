@@ -13,7 +13,7 @@ $statement1 = $connec->query($sql);
 
 $total = 0;
 $sql_total = "SELECT sum(cash) total_cashin FROM cash_in WHERE org_key = '$org_key' AND userid = '$userid' 
-and date(insertdate) = '$tanggal'";
+and date(insertdate) = '$tanggal' and status = '1'";
 $statement1_total = $connec->query($sql_total);
 
 foreach ($statement1_total as $row) {

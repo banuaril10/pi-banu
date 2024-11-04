@@ -3,6 +3,10 @@
 $org_key = $_POST['ad_org_id'];
 $nama_insert = $_POST['username'];
 $cash = $_POST['cash'];
+//str replace
+$cash = str_replace(".", "", $cash);
+
+
 $userid = $_POST['userid'];
 
 $date = date("Y-m-d H:i:s");
