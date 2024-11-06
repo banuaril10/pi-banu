@@ -53,7 +53,7 @@ $html = str_replace(" :    ", " : ", $html);
 $ip_printer = $_POST['ip_printer'];
 
 
-require __DIR__ . '../vendor/autoload.php';
+require '../vendor/autoload.php';
 use Mike42\Escpos\Printer;
 use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
 use Mike42\Escpos\PrintConnectors\FilePrintConnector;
