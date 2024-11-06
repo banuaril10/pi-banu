@@ -1,6 +1,13 @@
 <?php
 
 	$html = $_POST['html'];
+	$html .= '\r\n'; 
+	$html .= '\r\n'; 
+	$html .= '\r\n'; 
+	$html .= '\r\n'; 
+	$html .= '\r\n'; 
+	$html .= '\r\n'; 
+	
 	$cmd='';
     $cmd='echo "'.$html.'" | lpr -o raw'; //linux
 
