@@ -26,7 +26,8 @@ foreach ($statement as $r) {
     $discount = $r['discountamount'];
     $refund = $r['refundamount'];
     $net_sales = $r['salesamount'];
-    $sales = $r['salesamount'] + $discount + $refund;
+    // $sales = $r['salesamount'] + $discount + $refund;
+    $sales = $r['salesamount'] + $discount;
     // $net_sales = $sales - $discount - $refund;
     $sales_non_cash = $r['salesdebitamount'] + $r['salescreditamount'];
     // $cash_in_sistem = $r['actualamount'];
