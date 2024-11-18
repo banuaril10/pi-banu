@@ -45,6 +45,48 @@ try {
 	//delete pos_dsalesline_log where date now
 	$delete_pos_dsalesline_log = "delete from pos_dsalesline_log where date(insertdate) = date(now())";
 	$connec->query($delete_pos_dsalesline_log);
+
+
+
+	foreach ($j_hasil['cashier_balance'] as $key => $r) {
+
+		$qq_cashier_balance = "insert into pos_dcashierbalance (pos_dcashierbalance_key, ad_mclient_key, ad_morg_key, isactived, insertdate, insertby, postby, postdate, pos_mcashier_key, ad_muser_key, pos_mshift_key, startdate, enddate, 
+		balanceamount, salesamount, status, salescashamount, salesdebitamount, salescreditamount, actualamount, issync, refundamount, discountamount, cancelcount, cancelamount, donasiamount, pointamount, pointdebitamout, pointcreditamount)
+		values (
+		'" . $r['pos_dcashierbalance_key'] . "', 
+		'" . $r['ad_mclient_key'] . "', 
+		'" . $r['ad_morg_key'] . "', 
+		'" . $r['isactived'] . "', 
+		'" . $r['insertdate'] . "', 
+		'" . $r['insertby'] . "', 
+		'" . $r['postby'] . "', 
+		'" . $r['postdate'] . "', 
+		'" . $r['pos_mcashier_key'] . "', 
+		'" . $r['ad_muser_key'] . "', 
+		'" . $r['pos_mshift_key'] . "', 
+		" . (($r['startdate'] == '') ? "NULL" : ("'" . $r['startdate'] . "'")) . ", 
+		" . (($r['enddate'] == '') ? "NULL" : ("'" . $r['enddate'] . "'")) . ",
+		" . (($r['balanceamount'] == '') ? "NULL" : ("'" . $r['balanceamount'] . "'")) . ", 
+		" . (($r['salesamount'] == '') ? "NULL" : ("'" . $r['salesamount'] . "'")) . ", 
+		'" . $r['status'] . "', 
+		" . (($r['salescashamount'] == '') ? "NULL" : ("'" . $r['salescashamount'] . "'")) . ",
+		" . (($r['salesdebitamount'] == '') ? "NULL" : ("'" . $r['salesdebitamount'] . "'")) . ",
+		" . (($r['salescreditamount'] == '') ? "NULL" : ("'" . $r['salescreditamount'] . "'")) . ",
+		" . (($r['actualamount'] == '') ? "NULL" : ("'" . $r['actualamount'] . "'")) . ",
+		true, 
+		" . (($r['refundamount'] == '') ? "NULL" : ("'" . $r['refundamount'] . "'")) . ",
+		" . (($r['discountamount'] == '') ? "NULL" : ("'" . $r['discountamount'] . "'")) . ",
+		" . (($r['cancelcount'] == '') ? "NULL" : ("'" . $r['cancelcount'] . "'")) . ",
+		" . (($r['cancelamount'] == '') ? "NULL" : ("'" . $r['cancelamount'] . "'")) . ",
+		" . (($r['donasiamount'] == '') ? "NULL" : ("'" . $r['donasiamount'] . "'")) . ",
+		" . (($r['pointamount'] == '') ? "NULL" : ("'" . $r['pointamount'] . "'")) . ",
+		" . (($r['pointdebitamout'] == '') ? "NULL" : ("'" . $r['pointdebitamout'] . "'")) . ",
+		" . (($r['pointcreditamount'] == '') ? "NULL" : ("'" . $r['pointcreditamount'] . "'")) . "
+		)";
+
+		$result = $connec->query($qq_cashier_balance);
+
+	}
 	
 
 	// $connec->beginTransaction();
@@ -135,45 +177,7 @@ try {
 	}
 
 
-	foreach ($j_hasil['cashier_balance'] as $key => $r) {
 
-		$qq_cashier_balance = "insert into pos_dcashierbalance (pos_dcashierbalance_key, ad_mclient_key, ad_morg_key, isactived, insertdate, insertby, postby, postdate, pos_mcashier_key, ad_muser_key, pos_mshift_key, startdate, enddate, 
-		balanceamount, salesamount, status, salescashamount, salesdebitamount, salescreditamount, actualamount, issync, refundamount, discountamount, cancelcount, cancelamount, donasiamount, pointamount, pointdebitamout, pointcreditamount)
-		values (
-		'" . $r['pos_dcashierbalance_key'] . "', 
-		'" . $r['ad_mclient_key'] . "', 
-		'" . $r['ad_morg_key'] . "', 
-		'" . $r['isactived'] . "', 
-		'" . $r['insertdate'] . "', 
-		'" . $r['insertby'] . "', 
-		'" . $r['postby'] . "', 
-		'" . $r['postdate'] . "', 
-		'" . $r['pos_mcashier_key'] . "', 
-		'" . $r['ad_muser_key'] . "', 
-		'" . $r['pos_mshift_key'] . "', 
-		" . (($r['startdate'] == '') ? "NULL" : ("'" . $r['startdate'] . "'")) . ", 
-		" . (($r['enddate'] == '') ? "NULL" : ("'" . $r['enddate'] . "'")) . ",
-		" . (($r['balanceamount'] == '') ? "NULL" : ("'" . $r['balanceamount'] . "'")) . ", 
-		" . (($r['salesamount'] == '') ? "NULL" : ("'" . $r['salesamount'] . "'")) . ", 
-		'" . $r['status'] . "', 
-		" . (($r['salescashamount'] == '') ? "NULL" : ("'" . $r['salescashamount'] . "'")) . ",
-		" . (($r['salesdebitamount'] == '') ? "NULL" : ("'" . $r['salesdebitamount'] . "'")) . ",
-		" . (($r['salescreditamount'] == '') ? "NULL" : ("'" . $r['salescreditamount'] . "'")) . ",
-		" . (($r['actualamount'] == '') ? "NULL" : ("'" . $r['actualamount'] . "'")) . ",
-		true, 
-		" . (($r['refundamount'] == '') ? "NULL" : ("'" . $r['refundamount'] . "'")) . ",
-		" . (($r['discountamount'] == '') ? "NULL" : ("'" . $r['discountamount'] . "'")) . ",
-		" . (($r['cancelcount'] == '') ? "NULL" : ("'" . $r['cancelcount'] . "'")) . ",
-		" . (($r['cancelamount'] == '') ? "NULL" : ("'" . $r['cancelamount'] . "'")) . ",
-		" . (($r['donasiamount'] == '') ? "NULL" : ("'" . $r['donasiamount'] . "'")) . ",
-		" . (($r['pointamount'] == '') ? "NULL" : ("'" . $r['pointamount'] . "'")) . ",
-		" . (($r['pointdebitamout'] == '') ? "NULL" : ("'" . $r['pointdebitamout'] . "'")) . ",
-		" . (($r['pointcreditamount'] == '') ? "NULL" : ("'" . $r['pointcreditamount'] . "'")) . "
-		)";
-
-		$result = $connec->query($qq_cashier_balance);
-
-	}
 
 	// $connec->commit();
 
