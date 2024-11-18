@@ -1,11 +1,18 @@
 <?php include "../../config/koneksi.php";
 //get
 $stock = $_GET['stock'];
+$rack = $_GET['rack'];
 
-$query = "SELECT * FROM pos_mproduct order by sku asc";
+$query = "SELECT * FROM pos_mproduct where sku != ''";
 if($stock > 0){
-    $query = "SELECT * FROM pos_mproduct where stockqty > 0 order by sku asc";
+    $query .= " and stockqty > 0 order by sku asc";
 }
+
+if($rack != ""){
+    $query .= " and rack = '$rack'";
+}
+
+$query .= " order by sku asc";
 
 
 $json = array();
@@ -17,6 +24,7 @@ foreach ($statement as $r) {
         "sku" => $r['sku'],
         "name" => $r['name'],
         "price" => $r['price'],
+        "rack" => $r['rack'],
         "stock" => $r['stockqty']
     );
 

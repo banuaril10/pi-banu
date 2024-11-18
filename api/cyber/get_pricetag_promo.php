@@ -21,8 +21,8 @@ foreach ($get_store_code as $r) {
 
 $implode = implode("','", $data);
 
-$qq = "select a.*, (a.price - b.discount) afterdiscount, b.minbuy, b.todate from pos_mproduct a
-inner join (SELECT * FROM pos_mproductdiscountgrosir_new where date(now()) between fromdate and todate) b on a.sku = b.sku
+$qq = "select a.*, (a.price - b.discount) afterdiscount, b.todate from pos_mproduct a
+inner join (select * from pos_mproductdiscount where date(now()) between fromdate and todate) b on a.sku = b.sku
 where a.sku in ('" . $implode . "')";
 $statement = $connec->query($qq);
 
@@ -31,7 +31,7 @@ $date_now = date('d/m/Y');
 $products = array();
 foreach ($statement as $r) {
 
-    $products[] = $r['sku']."|".$r['name']."|".$r['price']."|".$date_now."|".$r['rack']."|".$r['afterdiscount']."|".$r['todate']."|".$r['barcode'];
+    $products[] = $r['sku'] . "|" . $r['name'] . "|" . $r['price'] . "|" . $date_now . "|" . $r['rack'] . "|" . $r['afterdiscount'] . "|" . $r['todate'] . "|" . $r['barcode'];
 }
 
 $json = array(

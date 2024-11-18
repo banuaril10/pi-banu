@@ -23,7 +23,8 @@ foreach ($statement as $r) {
         "sku" => $sku,
         "name" => $name,
         "qty" => $qty,
-        "amount" => rupiah_pos($amount)
+        "amount" => rupiah_pos($amount),
+        "amount_num" => $amount,
     );
 
     $no++;
