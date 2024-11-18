@@ -51,7 +51,8 @@ try {
 	foreach ($j_hasil['cashier_balance'] as $key => $r) {
 
 		$qq_cashier_balance = "insert into pos_dcashierbalance (pos_dcashierbalance_key, ad_mclient_key, ad_morg_key, isactived, insertdate, insertby, postby, postdate, pos_mcashier_key, ad_muser_key, pos_mshift_key, startdate, enddate, 
-		balanceamount, salesamount, status, salescashamount, salesdebitamount, salescreditamount, actualamount, issync, refundamount, discountamount, cancelcount, cancelamount, donasiamount, pointamount, pointdebitamout, pointcreditamount)
+		balanceamount, salesamount, status, salescashamount, salesdebitamount, salescreditamount, actualamount, issync, refundamount, discountamount, cancelcount, 
+		cancelamount, donasiamount, pointamount, pointdebitamout, pointcreditamount, status_intransit)
 		values (
 		'" . $r['pos_dcashierbalance_key'] . "', 
 		'" . $r['ad_mclient_key'] . "', 
@@ -81,7 +82,8 @@ try {
 		" . (($r['donasiamount'] == '') ? "NULL" : ("'" . $r['donasiamount'] . "'")) . ",
 		" . (($r['pointamount'] == '') ? "NULL" : ("'" . $r['pointamount'] . "'")) . ",
 		" . (($r['pointdebitamout'] == '') ? "NULL" : ("'" . $r['pointdebitamout'] . "'")) . ",
-		" . (($r['pointcreditamount'] == '') ? "NULL" : ("'" . $r['pointcreditamount'] . "'")) . "
+		" . (($r['pointcreditamount'] == '') ? "NULL" : ("'" . $r['pointcreditamount'] . "'")) . ",
+		'1'
 		)";
 
 		$result = $connec->query($qq_cashier_balance);
@@ -94,7 +96,8 @@ try {
 	foreach ($j_hasil['sales'] as $key => $r) {
 
 		$qq_header = "insert into pos_dsales (pos_dsales_key, ad_mclient_key, ad_morg_key, isactived, insertdate, insertby, postby, postdate, pos_medc_key, pos_dcashierbalance_key, pos_mbank_key, ad_muser_key, billno, billamount, 
-		paymentmethodname, membercard, cardno, approvecode, edcno, bankname, serialno, billstatus, paycashgiven, paygiven, printcount, issync, donasiamount, dpp, ppn, billcode, ispromomurah, point, pointgive, membername, status_intransit) 
+		paymentmethodname, membercard, cardno, approvecode, edcno, bankname, serialno, billstatus, paycashgiven, paygiven, printcount, issync, donasiamount, dpp, 
+		ppn, billcode, ispromomurah, point, pointgive, membername, status_intransit) 
 		values (
 		'" . $r['pos_dsales_key'] . "', 
 		'" . $r['ad_mclient_key'] . "', 
@@ -130,7 +133,7 @@ try {
 		" . (($r['point'] == '') ? "NULL" : ("'" . $r['point'] . "'")) . ",
 		" . (($r['pointgive'] == '') ? "NULL" : ("'" . $r['pointgive'] . "'")) . ",
 		" . (($r['membername'] == '') ? "NULL" : ("'" . $r['membername'] . "'")) . ", 
-		'" . $r['status_intransit'] . "'
+		'1'
 		)";
 
 		// print_r($r['line']);
@@ -162,7 +165,7 @@ try {
 					true, 
 					'" . $r_line['discountname'] . "', 
 					'" . $r_line['status_sales'] . "', 
-					'" . $r_line['status_intransit'] . "'
+					'1'
 					)";
 
 				$connec->query($qq_line);

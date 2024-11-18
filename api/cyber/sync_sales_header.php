@@ -37,7 +37,7 @@ function push_to_header($url, $header, $idstore)
 
 $jj_header = array();
 
-if($tanggal != ""){
+if($tanggal != "now"){
     $list_header = "select * from pos_dsales where date(insertdate) = '" . $tanggal . "' 
     and isactived = '1' and status_intransit is null";
 }else{

@@ -43,7 +43,7 @@ $jj_line = array();
 
 
 
-if ($tanggal != "") {
+if ($tanggal != "now") {
     $list_line = "select * from pos_dsalesline where date(insertdate) = '" . $tanggal . "' and isactived = '1' and status_intransit is null ";
 } else {
     $list_line = "select * from pos_dsalesline where isactived = '1' and status_intransit is null ";

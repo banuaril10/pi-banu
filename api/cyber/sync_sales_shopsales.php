@@ -43,7 +43,7 @@ $jj_posdshopsales = array();
 
 
 
-if ($tanggal != "") {
+if ($tanggal != "now") {
     $list_posdshopsales = "select * from pos_dshopsales where date(insertdate) = '" . $tanggal . "' and status_intransit is null";
 } else {
     $list_posdshopsales = "select * from pos_dshopsales where status_intransit is null";

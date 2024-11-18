@@ -39,7 +39,7 @@ function push_to_deleted($url, $deleted, $idstore)
 
 $jj_deleted = array();
 
-if ($tanggal != "") {
+if ($tanggal != "now") {
     $list_deleted = "select * from pos_dsalesdeleted where date(insertdate) = '" . $tanggal . "' and status_intransit is null";
 } else {
     $list_deleted = "select * from pos_dsalesdeleted where status_intransit is null";
