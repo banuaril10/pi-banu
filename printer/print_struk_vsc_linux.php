@@ -41,7 +41,7 @@ $html = $_POST['html'];
 	$html = str_replace("BARANG YANG SUDAH DIBELI TIDAK DAPAT", "   BARANG YANG SUDAH DIBELI 
           TIDAK DAPAT", $html);
 	$html = str_replace("=======================================", "================================", $html);
-	$html = str_replace("================================", "--------------------------------", $html);
+	// $html = str_replace("================================", "--------------------------------", $html);
 	$html = str_replace("***************************************", "********************************", $html);
 	$html = str_replace("Nama Barang", "Nm Brg", $html);
 	$html = str_replace("Disc  ", "Disc", $html);
