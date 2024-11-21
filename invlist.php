@@ -463,12 +463,7 @@ function cetakExcel(){
 				// console.log(dataResult);
 				
 				var dataResult = JSON.parse(dataResult);
-				
-				
-				
 					testJson = dataResult;
-
-
 					testTypes = {
 						"sku": "String",
 						"barcode_international": "String",
@@ -485,7 +480,7 @@ function cetakExcel(){
 							headerRow += '  </ss:Cell>\n';        
 						}
 						headerRow += '</ss:Row>\n';    
-						return '<?xml version="1.0"?>\n' +
+						return '<xml version="1.0">\n' +
 							'<ss:Workbook xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet">\n' +
 							'<ss:Worksheet ss:Name="Sheet1">\n' +
 							'<ss:Table>\n\n' + headerRow;

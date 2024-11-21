@@ -257,64 +257,16 @@ function cekSession(){
 				
 				if(dataResult.result=='1'){
 					$('#notif_sess').html("<font style='color: green'>"+dataResult.msg+"</font>");
-					 $(".modal-content").show();
-					
-				
+					$(".modal-content").show();
 				}else{
-					
-					
 					$('#notif_sess').html("<font style='color: red'>"+dataResult.msg+"</font>");
-					
-					 $(".modal-content").hide();
+					$(".modal-content").hide();
 				
 				}
-				
-				
-				
 			}
-					
-				
-				
-				
-			
 		});
-	
-	
 }
 
-function sendWa(m_pi){
-	
-	$.ajax({
-			url: "api/action.php?modul=inventory&act=nohp_spv&m_pi="+m_pi,
-			type: "GET",
-			beforeSend: function(){
-				$('#notif').html("Proses kirim notif ke SPV..");
-			},
-			success: function(dataResult){
-				console.log(dataResult);
-				var dataResults = JSON.parse(dataResult);
-				
-				if(dataResults.result=='1'){
-					$('#notif').html("<font style='color: green'>"+dataResults.msg+"</font>");
-					// $("#example").load(" #example");
-				
-				}else{
-					
-					$('#notif').html("<font style='color: red'>"+dataResults.msg+"</font>");
-					
-				}
-				
-				
-				
-			}
-					
-				
-				
-				
-			
-		});
-	
-}
 
 function loopingLine(){
 	
@@ -363,35 +315,6 @@ function selectKat(){
 	
 }
 
-
-function ubahStatus(m_pi_key){
-	// alert(m_pi_key);
-	var formData = new FormData();
-		
-	formData.append('m_pi', m_pi_key);
-	
-	$.ajax({
-		url: "api/action.php?modul=inventory&act=verifikasi",
-		type: "POST",
-		data : formData,
-		processData: false,
-		contentType: false,
-		success: function(dataResult){
-			console.log(dataResult);
-			var dataResult = JSON.parse(dataResult);
-			if(dataResult.result=='1'){
-				// $('#notif').html("<font style='color: green'>Berhasil input dengan product category!</font>");
-				$("#example").load(" #example");
-				
-			}
-			// else {
-				// $('#notif').html(dataResult.msg);
-			// }
-			
-		}
-	});
-	
-}
 
 function batalPI(m_pi_key){ 
 

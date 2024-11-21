@@ -553,6 +553,7 @@ $('#butsave').on('click', function() {
 						beforeSend: function(){
 							$('#notif').html("Proses input header dan line..");
 							$("#overlay").fadeIn(300);
+							$(".modal").modal('hide');
 						},
 						success: function(dataResult){
 							console.log(dataResult);
@@ -610,6 +611,7 @@ $('#butsave').on('click', function() {
 						beforeSend: function(){
 							$('#notif').html("Proses input header dan line..");
 							$("#overlay").fadeIn(300);
+							$(".modal").modal('hide');
 						},
 						success: function(dataResult){
 							console.log(dataResult);
@@ -650,6 +652,8 @@ $('#butsave').on('click', function() {
 						beforeSend: function(){
 							$('#notif').html("Proses input header dan line..");
 							$("#overlay").fadeIn(300);
+							//close modal 
+							$(".modal").modal('hide');
 						},
 						success: function(dataResult){
 							console.log(dataResult);

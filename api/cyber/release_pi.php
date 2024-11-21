@@ -143,14 +143,11 @@ foreach ($result as $row) {
         $statement1 = $connec->query("update m_piline set issync = '" . $r['status'] . "' where m_piline_key = '" . $r['m_piline_key'] . "' 
 									and m_pi_key ='" . $r['m_pi_key'] . "'");
         if ($statement1) {
-
             $up = $connec->query("update pos_mproduct set isactived = 1 where sku = '" . $r['sku'] . "'");
             if ($up) {
 
                 $no = $no + 1;
             }
-
-
         } else {
             $no = $no + 1;
 
