@@ -22,6 +22,7 @@ foreach ($statement as $r) {
     $json[] = array(
         "no" => $no,
         "sku" => $r['sku'],
+        "barcode" => $r['barcode'],
         "name" => $r['name'],
         "price" => $r['price'],
         "rack" => $r['rack'],
