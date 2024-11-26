@@ -316,7 +316,11 @@
 			<select name="pc" id="pc"class="selectize" >
 				<option value="">Product Category</option>			
 				<?php 
-				$sql = "select * from in_master_category";
+				$sql = "select * from in_master_category where category not in (		
+				select rack_name as value from m_pi where status in ('1','2') )
+				order by length(cat_id),cat_id  asc";
+				
+				
 	
 				foreach ($connec->query($sql) as $row) {
 					echo '<option value="'.$row['cat_id'].'">'.$row['category'].'</option>';	    

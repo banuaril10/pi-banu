@@ -3,7 +3,7 @@
 $stock = $_GET['stock'];
 $rack = $_GET['rack'];
 
-$query = "SELECT * FROM pos_mproduct where sku != ''";
+$query = "SELECT * FROM pos_mproduct where sku != '' and price > 0";
 if($stock > 0){
     $query .= " and stockqty > 0 order by sku asc";
 }

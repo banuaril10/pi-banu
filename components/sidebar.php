@@ -77,9 +77,23 @@
 
 
 				<li class="sidebar-item">
+					<a href="capture_sku_plano.php" class='sidebar-link'>
+						<i class="bi bi-camera"></i>
+						<span>Capture Planogram</span>
+					</a>
+				</li>
+				
+				<li class="sidebar-item">
 					<a href="capture_sku.php" class='sidebar-link'>
 						<i class="bi bi-camera"></i>
-						<span>Capture Price Tag</span>
+						<span>Capture Event</span>
+					</a>
+				</li>
+				
+				<li class="sidebar-item">
+					<a href="capture_sku_go.php" class='sidebar-link'>
+						<i class="bi bi-camera"></i>
+						<span>Dokumentasi GO / Relaunching</span>
 					</a>
 				</li>
 

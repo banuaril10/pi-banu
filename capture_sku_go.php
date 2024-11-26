@@ -12,10 +12,10 @@
 </style>
 
 <div id="overlay">
-			<div class="cv-spinner">
-				<span class="spinner"></span>
-			</div>
-		</div>
+	<div class="cv-spinner">
+		<span class="spinner"></span>
+	</div>
+</div>
 <div id="app">
 <div id="main">
 
@@ -32,7 +32,7 @@
 	<div class="col-12">
 		<div class="card">
 			<div class="card-header">
-				<h4>CAPTURE DISPLAY EVENT</h4>
+				<h4>CAPTURE RELAUNCHING / GRAND OPENING</h4>
 			</div>
 			<div class="card-body">
 			<div class="tables">			
@@ -43,10 +43,8 @@
 				$toko = '';
 				$cek_brand = "select * from ad_morg where postby = 'SYSTEM'";
 				foreach ($connec->query($cek_brand) as $row) {
-					
 					$toko = $row['name'];
 					$value = $row['value'];
-					
 				}
 				
 				
@@ -56,7 +54,8 @@
 					<table class="table table-bordered table-striped" id="">
 						<thead>
 							<tr>
-								<th>Image</th>
+								<th>Gambar Contoh</th>
+								<th>Gambar Upload</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -72,7 +71,7 @@
 							$curl = curl_init();
 						
 							curl_setopt_array($curl, array(
-							CURLOPT_URL => "https://mkt.idolmartidolaku.com/api/image_sku.php",
+							CURLOPT_URL => "https://mkt.idolmartidolaku.com/api/image_sku_go.php",
 							CURLOPT_RETURNTRANSFER => true,
 							CURLOPT_ENCODING => '',
 							CURLOPT_MAXREDIRS => 10,
@@ -94,7 +93,7 @@
 						$date_now = date("Y-m-d");
 						// $date_now = '2023-10-10';
 						
-						$json_url = "https://mkt.idolmartidolaku.com/api/get_sku_event.php?tgl=".$date_now."&toko=".$value;
+						$json_url = "https://mkt.idolmartidolaku.com/api/get_sku_go.php?tgl=".$date_now."&toko=".$value;
 						$options = stream_context_create(array('http'=>
 							array(
 							'timeout' => 10 //10 seconds
@@ -108,8 +107,6 @@
 					
 					
 						// print_r($arr);
-					
-						
 						$s = array();
 						if($jum > 0){
 						$no = 1;
@@ -128,37 +125,67 @@
 							// print_r($json1);
 							
 							$img = '<img src="images/no-image.png" style="width: 200px"></img>';
+							$img_sample = '<img src="images/no-image.png" style="width: 400px"></img>';
+
+
+							$array_img = array();
 							if($jum1 > 0){
 								foreach ($arr1 as $row_img) {
 									$img = $row_img['image'];
-									
+									$array_img[] = $img;
 								}
-								
 							}
+							
+							
+							if($row1['file'] != ""){
+								$img_sample = '<img src="'.$row1['base_url'].$row1['file'].'" style="width: 400px"></img>';
+							}
+							
 							
 							
 						?>
 						
 						
 							<tr>
+							
+								<td>
+									<?php echo $img_sample; ?>
+								
+								</td>
 
 	
 								<td>
-								<?php echo $no; ?>. <b>SKU : </b><?php echo $row1['sku']; ?> (<?php echo $row1['desk']; ?>)
+								<?php echo $no; ?>. <?php echo $row1['desk']; ?>
 								
 								<form id="file-info<?php echo $row1['id']; ?>">
 								
-								<center><div id="file-load<?php echo $row1['id']; ?>"><?php echo $img; ?></div></center>
+								<center>
+								<div class="row">
+								<?php 
+								foreach ($array_img as $row_img) { ?>
+									<div class="col-md-4">
+										<div id="file-load<?php echo $row1['id']; ?>"><?php echo $row_img; ?></div>
+									</div>
+								<?php } ?>
+								
+								</div>
+								</center>
 								<br>
 								<br>
 								
-								<textarea class="form-control" id="alasan<?php echo $row1['id']; ?>" placeholder="Masukan alasan jika ada.. (tidak wajib)"><?php echo $row1['alasan']; ?></textarea>
-								<br>
 								
-								<input type="file" accept=".jpg, .png, .jpeg, .gif" name="fileupload<?php echo $row1['id']; ?>" id="fileupload<?php echo $row1['id']; ?>" class="form-control" />
+								<!-- <input class="dropzone" type="file" id="fileupload<?php echo $row1['id']; ?>" name="fileupload" accept="image/*" /> -->
+
+								<input type="file" id="fileupload<?php echo $row1['id']; ?>" name="fileupload" accept="image/*,video/*" />
+
+
+
+
 								<br>
 								<input type="hidden" id="sku<?php echo $row1['id']; ?>" value="<?php echo $row1['sku']; ?>">
 								<input type="hidden" id="toko<?php echo $row1['id']; ?>" value="<?php echo $toko; ?>">
+								
+								
 								<button class="btn btn-primary" type="button" onclick="uploadImage('<?php echo $row1['id']; ?>');" >Upload</button>
 								
 								</form>
@@ -195,8 +222,18 @@
 </div>
 </div>
 
+ 
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.js"></script>
+
+
 
 <script type="text/javascript">
+
+ 
+
+
 $(document).ready( function () {
     $('#example').DataTable({
         lengthMenu: [
@@ -204,8 +241,7 @@ $(document).ready( function () {
             [10, 25, 50, 'All'],
         ],
     });
-} );
-
+});
 
 function uploadImage(id){
 	
@@ -219,7 +255,6 @@ function uploadImage(id){
 				
 				var sku = $("#sku"+id).val();
 				var toko = $("#toko"+id).val();
-				var alasan = $("#alasan"+id).val();
 				
 				
 				let formData = new FormData();
@@ -227,7 +262,6 @@ function uploadImage(id){
 				formData.append('id', id);
 				formData.append('sku', sku);
 				formData.append('toko', toko);
-				formData.append('alasan', alasan);
 				
 				$.ajax({
 					xhr: function() {
@@ -242,12 +276,13 @@ function uploadImage(id){
 					return xhr;
 					},
 					type: 'POST',
-					url: "https://mkt.idolmartidolaku.com/api/upload_sku.php",
+					url: "https://mkt.idolmartidolaku.com/api/upload_sku_go.php",
 					data: formData,
 					cache: false,
 					processData: false,
 					contentType: false,
 					success: function (msg) {
+						location.reload();
 						$("#file-load"+id).load(" #file-load"+id);
 						$("#fileupload"+id).val('');
 						
