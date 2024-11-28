@@ -17,6 +17,7 @@ foreach ($statement as $r) {
         "date" => date_format_pos($r['date']),
         "category" => $category,
         "amount" => rupiah_pos($amount),
+        "amount_num" => $amount,
     );
 
     $no++;
