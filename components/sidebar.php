@@ -57,6 +57,13 @@
 						</li>
 					</ul>
 				</li>
+				
+				<li class="sidebar-item">
+					<a href="cek_harga.php" class='sidebar-link'>
+						<i class="bi bi-cash-stack"></i>
+						<span>Cek Harga</span>
+					</a>
+				</li>
 
 
 				<li class="sidebar-item  has-sub">

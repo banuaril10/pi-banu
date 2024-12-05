@@ -1,4 +1,5 @@
 <?php include "../../config/koneksi.php";
+ini_set('max_execution_time', '300');
 $connec->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 $ll = "select * from ad_morg where isactived = 'Y'";
 $query = $connec->query($ll);
@@ -34,19 +35,10 @@ $j_hasil = json_decode($hasil, true);
 
 $s = array();
 
+$arr_insert = array();
+$arr_update = array();
+
 try {
-    $truncate = "TRUNCATE pos_mproduct";
-    $statement = $connec->prepare($truncate);
-    $statement->execute();
-
-
-    $values = array();
-    $sql_items = "INSERT INTO pos_mproduct (ad_mclient_key, ad_morg_key, isactived, insertdate, insertby, postby, postdate, m_product_id, m_product_category_id, sku, 
-            name, description, price, stockqty, shortcut, barcode, tag, idcat, idsubcat, idsubitem)
-                    VALUES(:ad_mclient_key, :ad_morg_key, :isactived, :insertdate, :insertby, :postby, :postdate, :m_product_id, :m_product_category_id, :sku,
-                    :name, :description, :price, :stockqty, :shortcut, :barcode, :tag, :idcat, :idsubcat, :idsubitem)";
-
-    $stmt_items = $connec->prepare($sql_items);
 
     foreach ($j_hasil as $key => $value) {
 
@@ -55,7 +47,7 @@ try {
         $sku = $value['sku'];
         $barcode = $value['barcode'];
         $shortcut = $value['shortcut'];
-        $name = str_replace("'", "\'", $value['name']);
+        $name = str_replace("'", "''", $value['name']);
         $idcat = $value['idcat'];
         $idsubcat = $value['idsubcat'];
         $idsubitem = $value['idsubitem'];
@@ -84,80 +76,72 @@ try {
             $idsubitem = 0;
         }
 
-            $stmt_items->execute(array(
-                ':ad_mclient_key' => $ad_mclient_key,
-                ':ad_morg_key' => $idstore,
-                ':isactived' => $isactived,
-                ':insertdate' => date("Y-m-d H:i:s"),
-                ':insertby' => 'SYSTEM',
-                ':postby' => 'SYSTEM',
-                ':postdate' => date("Y-m-d H:i:s"),
-                ':m_product_id' => $id,
-                ':m_product_category_id' => $idcat,
-                ':sku' => $sku,
-                ':name' => $name,
-                ':description' => '',
-                ':price' => 0,
-                ':stockqty' => 0,
-                ':shortcut' => $shortcut,
-                ':barcode' => $barcode,
-                ':tag' => $tag,
-                ':idcat' => $idcat,
-                ':idsubcat' => $idsubcat,
-                ':idsubitem' => $idsubitem
-            ));
-        
+        $check = "SELECT count(*) jum FROM pos_mproduct WHERE m_product_id = '".$id."'";
+        $stmt_check = $connec->query($check);
+    
 
-    //     $s[] = "('" . $ad_mclient_key . "','" . $idstore . "', '" . $isactived . "', '" . date("Y-m-d H:i:s") . "', 'SYSTEM', 'SYSTEM', 
-    // '" . date("Y-m-d H:i:s") . "', '" . $id . "', '" . $idcat . "', '" . $sku . "',
-    // '" . $name . "', '', '0', '0', '" . $shortcut . "', '" . $barcode . "','" . $tag . "', '" . $idcat . "', '" . $idsubcat . "', '" . $idsubitem . "')";
+        foreach ($stmt_check as $r) {
+           if($r['jum'] > 0){
+                $connec->query("UPDATE pos_mproduct SET ad_mclient_key = '" . $ad_mclient_key . "', ad_morg_key = '" . $idstore . "', isactived = '" . $isactived . "',
+                postby = 'SYSTEM', postdate = '" . date("Y-m-d H:i:s") . "', m_product_id = '" . $id . "', m_product_category_id = '" . $idcat . "', sku = '" . $sku . "',
+                name = '" . $name . "', shortcut = '" . $shortcut . "', barcode = '" . $barcode . "', tag = '" . $tag . "', idcat = '" . $idcat . "', idsubcat = 
+                '" . $idsubcat . "', idsubitem = '" . $idsubitem . "' WHERE m_product_id = '" . $id . "'");
+            }else{
+
+                $arr_insert[] = "('".$ad_mclient_key."', '".$idstore."', 
+                '".$isactived."', '".date("Y-m-d H:i:s")."', 'SYSTEM', 'SYSTEM', '".date("Y-m-d H:i:s")."', '".$id."', '".$idcat."', '".$sku."',
+                '".$name."', '', 0, 0, '".$shortcut."', '".$barcode."', '".$tag."', '".$idcat."', '".$idsubcat."', '".$idsubitem."')";
+
+           }
+        }
     }
 
-    if ($s == null) {
-        $json = array(
-            "status" => "FAILED",
-            "message" => "Data Not Found",
-        );
-        echo json_encode($json);
-        die();
-    }
+        if(count($arr_insert) > 0){
+            $values = implode(", ", $arr_insert);
+            $insert = "insert into pos_mproduct (ad_mclient_key, ad_morg_key, isactived, insertdate, insertby, postby, postdate, m_product_id, m_product_category_id, sku, 
+            name, description, price, stockqty, shortcut, barcode, tag, idcat, idsubcat, idsubitem)
+            VALUES " . $values . ";";
+            $connec->query($insert);
+        }
 
-    //truncate
+        // $connec->beginTransaction();
+        // if(count($arr_update) > 0){
+        //     // $values = implode(";", $arr_update);
+        //     // $stmt = $connec->prepare($values);
+        //     // $stmt->execute();
+        //     foreach($arr_update as $update){
+        //        $connec->exec($update);
+        //     }
+        // }
+        // $connec->commit();
 
-    // try {
+
+
+    
         
 
-    //     $values = implode(", ", $s);
-    //     $insert = "insert into pos_mproduct (ad_mclient_key, ad_morg_key, isactived, insertdate, insertby, postby, postdate, m_product_id, m_product_category_id, sku, 
-    //         name, description, price, stockqty, shortcut, barcode, tag, idcat, idsubcat, idsubitem)
-    //         VALUES " . $values . ";";
-
-    //     $statement = $connec->prepare($insert);
-    //     $statement->execute();
-    // } catch (PDOException $e) {
+    // if ($s == null) {
     //     $json = array(
     //         "status" => "FAILED",
-    //         "message" => $e->getMessage(),
+    //         "message" => "Data Not Found",
     //     );
     //     echo json_encode($json);
     //     die();
     // }
 
+    // $result = $statement->fetchAll(PDO::FETCH_ASSOC);
 
-
-    $result = $statement->fetchAll(PDO::FETCH_ASSOC);
-
-    if ($result) {
+    // if ($result) {
         $json = array(
             "status" => "OK",
             "message" => "Data Inserted",
         );
-    } else {
-        $json = array(
-            "status" => "FAILED",
-            "message" => "Data Not Inserted",
-        );
-    }
+    // } else {
+    //     $json = array(
+    //         "status" => "FAILED",
+    //         "message" => "Data Not Inserted",
+    //     );
+    // }
     echo json_encode($json);
 } catch (PDOException $e) {
     echo "Connection failed: " . $e->getMessage();
