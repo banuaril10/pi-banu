@@ -1,6 +1,7 @@
 <?php
-
-	$html = $_POST['html'];
+	//change font size 
+	$html = chr(27) . "!" . 0;
+	$html .= $_POST['html'];
 	$html .= '\r\n'; 
 	$html .= '\r\n'; 
 	$html .= '\r\n'; 
