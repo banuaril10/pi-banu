@@ -1,6 +1,6 @@
 <?php
-	//change font size 
-	$html = chr(27) . "!" . 0;
+	//change font size to small
+	$html = chr(27) . chr(33) . chr(1); // ESC ! 1 to change font size to small
 	$html .= $_POST['html'];
 	$html .= '\r\n'; 
 	$html .= '\r\n'; 
