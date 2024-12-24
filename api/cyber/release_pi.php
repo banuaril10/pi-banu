@@ -156,6 +156,8 @@ foreach ($result as $row) {
     }
 }
 
+// var_dump($hasil);
+
 $json = array('result' => '1', 'msg' => 'Berhasil mengirim ' . $no . ' data');
 $json_string = json_encode($json);
 echo $json_string;

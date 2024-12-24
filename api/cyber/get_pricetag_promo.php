@@ -2,13 +2,18 @@
 //get data product
 
 $arrproduct = $_POST['arrproduct'];
+$arrcopy = $_POST['arrcopy'];
 $data = array();
-
+$data_copy = array();
 
 $arr = json_encode($arrproduct);
 
 foreach ($arrproduct as $r) {
     $data[] = $r;
+}
+
+foreach ($arrcopy as $r) {
+    $data_copy[] = $r;
 }
 
 // print_r($data);
@@ -29,9 +34,15 @@ $statement = $connec->query($qq);
 $date_now = date('d/m/Y');
 
 $products = array();
+$noarr = 0;
 foreach ($statement as $r) {
 
-    $products[] = $r['sku'] . "|" . $r['name'] . "|" . $r['price'] . "|" . $date_now . "|" . $r['rack'] . "|" . $r['afterdiscount'] . "|" . $r['todate'] . "|" . $r['barcode'];
+    for ($i = 0; $i < $data_copy[$noarr]; $i++) {
+        $products[] = $r['sku'] . "|" . $r['name'] . "|" . $r['price'] . "|" . $date_now . "|" . $r['rack'] . "|" . $r['afterdiscount'] . "|" . $r['todate'] . "|" . $r['barcode'];
+    }
+
+    
+    $noarr++;
 }
 
 $json = array(

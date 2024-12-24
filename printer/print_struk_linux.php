@@ -4,9 +4,7 @@
 	$html .= $_POST['html'];
 	$html .= '\r\n'; 
 	$html .= '\r\n'; 
-	$html .= '\r\n'; 
-	$html .= '\r\n'; 
-	$html .= '\r\n'; 
+
 	$html .= chr(29) . "V" . 0; 
 	// $html .= '\r\n'; 
 	

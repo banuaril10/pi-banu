@@ -103,37 +103,39 @@ foreach ($resultss as $r) {
 						
 						<tbody>
 						
-						<?php
-						function get_data_image($sku, $tgl, $toko){
-							$postData = array("sku" => $sku,"tgl" => $tgl,"toko" => $toko);				    
-							// $postData = array('sku' => '456','tgl' => '2023-10-10','toko' => 'BOSOL-ONLINE SHOP');				    
-							$fields_string = http_build_query($postData);
-							$curl = curl_init();
+						<?php 
 						
-							curl_setopt_array($curl, array(
-							CURLOPT_URL => "https://mkt.idolmartidolaku.com/api/image_sku.php",
-							CURLOPT_RETURNTRANSFER => true,
-							CURLOPT_ENCODING => '',
-							CURLOPT_MAXREDIRS => 10,
-							CURLOPT_TIMEOUT => 0,
-							CURLOPT_FOLLOWLOCATION => true,
-							CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-							CURLOPT_CUSTOMREQUEST => 'POST',
-							CURLOPT_POSTFIELDS => $fields_string,
-							));
+						
+						
+						// function get_data_image($sku, $tgl, $toko){
+							// $postData = array("sku" => $sku,"tgl" => $tgl,"toko" => $toko);				    		    
+							// $fields_string = http_build_query($postData);
+							// $curl = curl_init();
+						
+							// curl_setopt_array($curl, array(
+							// CURLOPT_URL => "https://mkt.idolmartidolaku.com/api/image_sku.php",
+							// CURLOPT_RETURNTRANSFER => true,
+							// CURLOPT_ENCODING => '',
+							// CURLOPT_MAXREDIRS => 10,
+							// CURLOPT_TIMEOUT => 0,
+							// CURLOPT_FOLLOWLOCATION => true,
+							// CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+							// CURLOPT_CUSTOMREQUEST => 'POST',
+							// CURLOPT_POSTFIELDS => $fields_string,
+							// ));
 							
-							$response = curl_exec($curl);
+							// $response = curl_exec($curl);
 							
-							curl_close($curl);
-							return $response;
+							// curl_close($curl);
+							// return $response;
 					
 					
-						}
+						// }
 						
 						$date_now = date("Y-m-d");
 						// $date_now = '2023-10-10';
 						
-						$json_url = "https://mkt.idolmartidolaku.com/api/get_sku_plano.php?tgl=".$date_now."&toko=".$value;
+						$json_url = "https://mkt.idolmartidolaku.com/api/get_sku_plano_approve.php?tgl=".$date_now."&toko=".$value;
 						$options = stream_context_create(array('http'=>
 							array(
 							'timeout' => 10 //10 seconds
@@ -153,91 +155,54 @@ foreach ($resultss as $r) {
 						if($jum > 0){
 						$no = 1;
 						foreach ($arr as $row1) {
-							$name = "-";
-							$cek_name = "select name from pos_mproduct where sku = '".$row1['sku']."'";
-							foreach ($connec->query($cek_name) as $row_dis) {
+							// $name = "-";
+							// $cek_name = "select name from pos_mproduct where sku = '".$row1['sku']."'";
+							// foreach ($connec->query($cek_name) as $row_dis) {
 								
-								$name = $row_dis['name'];
-							}
+								// $name = $row_dis['name'];
+							// }
 							
-							$json1 = get_data_image($row1['sku'], $date_now, $toko);
-							$arr1 = json_decode($json1, true);
-							$jum1 = count($arr1);
+							// $json1 = get_data_image($row1['sku'], $date_now, $toko);
+							// $arr1 = json_decode($json1, true);
+							// $jum1 = count($arr1);
 							
 							// print_r($json1);
 							
-							$img = '<img src="images/no-image.png" style="width: 200px"></img>';
-							$img_sample = '<img src="images/no-image.png" style="width: 400px"></img>';
-							if($jum1 > 0){
-								foreach ($arr1 as $row_img) {
-									$img = $row_img['image'];
+							// $img = '<img src="images/no-image.png" style="width: 200px"></img>';
+							// $img_sample = '<img src="images/no-image.png" style="width: 400px"></img>';
+							// if($jum1 > 0){
+								// foreach ($arr1 as $row_img) {
+									// $img = $row_img['image'];
 									
-								}
+								// }
 								
-							}
+							// }
 							
-							$img_sample = "";
-							$img_sample2 = "";
-							$img_sample3 = "";
-							if($row1['file'] != ""){
-								$img_sample = '<img src="'.$row1['base_url'].$row1['file'].'" style="width: 400px"></img>';
+							// $img_sample = "";
+							// $img_sample2 = "";
+							// $img_sample3 = "";
+							// if($row1['file'] != ""){
+								// $img_sample = '<img src="'.$row1['base_url'].$row1['file'].'" style="width: 400px"></img>';
 								
 								
-							}
+							// }
 							
-							if($row1['file2'] != ""){
-								$img_sample2 = '<img src="'.$row1['base_url'].$row1['file2'].'" style="width: 400px"></img>';
-							}
+							// if($row1['file2'] != ""){
+								// $img_sample2 = '<img src="'.$row1['base_url'].$row1['file2'].'" style="width: 400px"></img>';
+							// }
 							
-							if($row1['file3'] != ""){
-								$img_sample3 = '<img src="'.$row1['base_url'].$row1['file3'].'" style="width: 400px"></img>';
-							}
+							// if($row1['file3'] != ""){
+								// $img_sample3 = '<img src="'.$row1['base_url'].$row1['file3'].'" style="width: 400px"></img>';
+							// }
 							
 							
 							
 						?>
 						
-				
-							<tr>
-								<td colspan="3" style="background-color: #629584; color: #fff; font-size: 35px"><center>Contoh Foto <b><?php echo $row1['nama']; ?></center></b></td>
-							</tr>
 			
-						
-						
-							<tr>
-									<td><?php echo $img_sample; ?></td>
-									<td><?php echo $img_sample2; ?></td>
-									<td><?php echo $img_sample3; ?></td>
-							</tr>
 							<tr>
 								<td colspan="3">
 								<?php echo $no; ?>. <?php echo $row1['desk']; ?>
-								
-								<form id="file-info<?php echo $row1['id']; ?>">
-								
-								<center>
-								
-								
-								<div id="file-load<?php echo $row1['id']; ?>"><?php echo $img; ?></div>
-								
-								</center>
-								<br>
-								<br>
-								
-								<textarea class="form-control" id="alasan<?php echo $row1['id']; ?>" placeholder="Masukan alasan jika ada.. (tidak wajib)"><?php echo $row1['alasan']; ?></textarea>
-								<br>
-								<input type="file" accept=".jpg, .png, .jpeg, .gif" name="fileupload<?php echo $row1['id']; ?>" id="fileupload<?php echo $row1['id']; ?>" class="form-control" />
-								<br>
-								<input type="hidden" id="sku<?php echo $row1['id']; ?>" value="<?php echo $row1['sku']; ?>">
-								<input type="hidden" id="toko<?php echo $row1['id']; ?>" value="<?php echo $toko; ?>">
-								<button class="btn btn-primary" type="button" onclick="uploadImage('<?php echo $row1['id']; ?>');" >Upload</button>
-								
-								</form>
-
-								<div class="progress">
-									<div id="progress-bar<?php echo $row1['id']; ?>" class="progress-bar"></div>
-								</div>
-								
 								<p id="notif<?php echo $row1['id']; ?>"></p>
 
 								</td>

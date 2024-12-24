@@ -317,7 +317,7 @@
 				<option value="">Product Category</option>			
 				<?php 
 				$sql = "select * from in_master_category where category not in (		
-				select rack_name as value from m_pi where status in ('1','2') )
+				select rack_name as value from m_pi where status in ('1','2') and date(insertdate) = date(now()) )
 				order by length(cat_id),cat_id  asc";
 				
 				
