@@ -45,7 +45,8 @@ $jj_cashierbalance = array();
 if ($tanggal != "now") {
     $list_cashierbalance = "select * from pos_dcashierbalance where date(insertdate) = '" . $tanggal . "' and status_intransit is null";
 } else {
-    $list_cashierbalance = "select * from pos_dcashierbalance where status_intransit is null";
+    // $list_cashierbalance = "select * from pos_dcashierbalance where status_intransit is null";
+    $list_cashierbalance = "select * from pos_dcashierbalance where date(insertdate) = date(now()) ";
 }
 
 
