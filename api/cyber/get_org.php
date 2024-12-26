@@ -155,18 +155,12 @@ if ($jum == 0) {
         '" . date('Y-m-d H:i:s') . "', '83B183DC512A4B1E9CD7E37EBD86F308', 'C00D0FB2D6F24C15ADCCBCDD4ADC0A60', 'pos', 'pos', 'profile_A151399D4D584B42BA5EF782BCECB34A.gif',
          '8252b14572f9575795082c43d3448c9051992e834c22872c878420e0676684ed', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
           NULL, '1')")->execute();
-
-
-        $json = array(
-            "status" => "OK",
-            "message" => "Data Already Exist",
-        );
-    }else{
-        $json = array(
-            "status" => "OK",
-            "message" => "Data Already Exist",
-        );
     }
+
+    $json = array(
+        "status" => "OK",
+        "message" => "Data Already Exist",
+    );
 }
 
 echo json_encode($json);

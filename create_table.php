@@ -677,7 +677,15 @@ BEGIN
     RETURN OLD; 
 END;
 $function$
-;','create trigger trigger_send_to_pos_dsales after delete on public.pos_dsales for each row execute PROCEDURE send_to_pos_dsales()'];
+;',
+'DROP TRIGGER IF EXISTS trigger_send_to_pos_dsales ON public.pos_dsales;',
+"CREATE TRIGGER trigger_send_to_pos_dsales
+AFTER DELETE
+ON public.pos_dsales
+FOR EACH ROW
+WHEN (OLD.isactived = '1')
+EXECUTE procedure send_to_pos_dsales();"
+];
 
 foreach ($send_to_pos_dsales as $r) {
 	$connec->exec($r);

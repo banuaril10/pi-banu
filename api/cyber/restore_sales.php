@@ -47,6 +47,51 @@ try {
 	$connec->query($delete_pos_dsalesline_log);
 
 
+	// pos_dshop_sales
+	foreach ($j_hasil['pos_dshop_sales'] as $key => $r) {
+
+		$qq_shop_sales = "insert into pos_dshopsales (pos_dshopsales_key, ad_mclient_key, ad_morg_key, isactived, insertdate, insertby, postby, postdate, pos_mshift_key, ad_muser_key, salesdate, closedate, balanceamount, salesamount, salescashamount, salesdebitamount, salescreditamount, status, actualamount, remark, issync, refundamount, discountamount, cancelcount, cancelamount, donasiamount, variantmin, variantplus, pointamount, pointdebitamout, pointcreditamount, status_intransit) 
+		values (
+		'" . $r['pos_dshopsales_key'] . "', 
+		'" . $r['ad_mclient_key'] . "', 
+		'" . $r['ad_morg_key'] . "', 
+		'" . $r['isactived'] . "', 
+		'" . $r['insertdate'] . "', 
+		'" . $r['insertby'] . "', 
+		'" . $r['postby'] . "', 
+		'" . $r['postdate'] . "', 
+		'" . $r['pos_mshift_key'] . "', 
+		'" . $r['ad_muser_key'] . "', 
+		" . (($r['salesdate'] == '') ? "NULL" : ("'" . $r['salesdate'] . "'")) . ", 
+		" . (($r['closedate'] == '') ? "NULL" : ("'" . $r['closedate'] . "'")) . ", 
+		" . (($r['balanceamount'] == '') ? "NULL" : ("'" . $r['balanceamount'] . "'")) . ", 
+		" . (($r['salesamount'] == '') ? "NULL" : ("'" . $r['salesamount'] . "'")) . ", 
+		" . (($r['salescashamount'] == '') ? "NULL" : ("'" . $r['salescashamount'] . "'")) . ", 
+		" . (($r['salesdebitamount'] == '') ? "NULL" : ("'" . $r['salesdebitamount'] . "'")) . ", 
+		" . (($r['salescreditamount'] == '') ? "NULL" : ("'" . $r['salescreditamount'] . "'")) . ",
+		'" . $r['status'] . "',
+		" . (($r['actualamount'] == '') ? "NULL" : ("'" . $r['actualamount'] . "'")) . ",
+		" . (($r['remark'] == '') ? "NULL" : ("'" . $r['remark'] . "'")) . ",
+		true,
+		" . (($r['refundamount'] == '') ? "NULL" : ("'" . $r['refundamount'] . "'")) . ",
+		" . (($r['discountamount'] == '') ? "NULL" : ("'" . $r['discountamount'] . "'")) . ",
+		" . (($r['cancelcount'] == '') ? "NULL" : ("'" . $r['cancelcount'] . "'")) . ",
+		" . (($r['cancelamount'] == '') ? "NULL" : ("'" . $r['cancelamount'] . "'")) . ",
+		" . (($r['donasiamount'] == '') ? "NULL" : ("'" . $r['donasiamount'] . "'")) . ",
+		" . (($r['variantmin'] == '') ? "NULL" : ("'" . $r['variantmin'] . "'")) . ",
+		" . (($r['variantplus'] == '') ? "NULL" : ("'" . $r['variantplus'] . "'")) . ",
+		" . (($r['pointamount'] == '') ? "NULL" : ("'" . $r['pointamount'] . "'")) . ",
+		" . (($r['pointdebitamout'] == '') ? "NULL" : ("'" . $r['pointdebitamout'] . "'")) . ",
+		" . (($r['pointcreditamount'] == '') ? "NULL" : ("'" . $r['pointcreditamount'] . "'")) . ",
+		'1'
+		)";
+
+		$result = $connec->query($qq_shop_sales);
+
+	}
+	
+
+
 
 	foreach ($j_hasil['cashier_balance'] as $key => $r) {
 
