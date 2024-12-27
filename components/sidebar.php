@@ -15,6 +15,30 @@
 		<div class="sidebar-menu">
 			<ul class="menu">
 				<li class="sidebar-title">Menu</li>
+				
+				<li class="sidebar-item  has-sub">
+					<a href="#" class='sidebar-link'>
+						<i class="bi bi-camera"></i>
+						<span>Capture</span>
+					</a>
+					<ul class="submenu ">
+						<li class="submenu-item ">
+							<a href="capture_sku_plano.php">Planogram</a>
+						</li>
+						<li class="submenu-item ">
+							<a href="capture_sku_plano_approved.php">Planogram Approved</a>
+						</li>
+						<li class="submenu-item ">
+							<a href="capture_sku.php">Event</a>
+						</li>
+						<li class="submenu-item ">
+							<a href="capture_sku_go.php">GO / Relaunching</a>
+						</li>
+						<li class="submenu-item ">
+							<a href="capture_sku_promo.php">Promo</a>
+						</li>
+					</ul>
+				</li>
 
 				<li class="sidebar-item  has-sub">
 					<a href="#" class='sidebar-link'>
@@ -82,41 +106,6 @@
 					</ul>
 				</li>
 
-
-				<li class="sidebar-item">
-					<a href="capture_sku_plano.php" class='sidebar-link'>
-						<i class="bi bi-camera"></i>
-						<span>Capture Planogram</span>
-					</a>
-				</li>
-				
-				<li class="sidebar-item">
-					<a href="capture_sku_plano_approved.php" class='sidebar-link'>
-						<i class="bi bi-camera"></i>
-						<span>Capture Planogram Approved</span>
-					</a>
-				</li>
-				
-				<li class="sidebar-item">
-					<a href="capture_sku.php" class='sidebar-link'>
-						<i class="bi bi-camera"></i>
-						<span>Capture Event</span>
-					</a>
-				</li>
-				
-				<li class="sidebar-item">
-					<a href="capture_sku_go.php" class='sidebar-link'>
-						<i class="bi bi-camera"></i>
-						<span>Dokumentasi GO / Relaunching</span>
-					</a>
-				</li>
-
-				<li class="sidebar-item">
-					<a href="capture_jsm.php" class='sidebar-link'>
-						<i class="bi bi-camera"></i>
-						<span>Capture Price Tag JSM</span>
-					</a>
-				</li>
 
 				<li class="sidebar-item">
 					<a href="mitemspromo_live.php" class='sidebar-link'>

@@ -32,7 +32,7 @@ foreach ($statement as $r) {
 
     $text_grosir_price = "";
     foreach ($grosir_price as $gp) {
-        $text_grosir_price .= "Beli ".$gp['minbuy'].", Harga Satuan ".$gp['afterdiscount']."<br>";
+        $text_grosir_price .= "Beli ".$gp['minbuy'].", Harga Satuan Menjadi ".rupiah_pos($gp['afterdiscount'])."<br>";
     }
 
 
