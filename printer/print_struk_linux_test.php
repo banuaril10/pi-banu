@@ -1,7 +1,8 @@
 <?php
 	//change font size to small
-	$html = chr(27) . chr(33) . chr(1); // ESC ! 1 to change font size to small
-	$html .= 'test print';
+	// $html = chr(27) . chr(33) . chr(1); // ESC ! 1 to change font size to small
+	// $html = chr(27) . chr(33) . chr(1); // ESC ! 1 to change font size to small
+	$html = 'test print';
 	$html .= 'test print';
 	$html .= 'test print';
 	$html .= 'test print';
