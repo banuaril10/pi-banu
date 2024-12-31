@@ -2,11 +2,13 @@
 //get data product
 
 $arrproduct = $_POST['arrproduct'];
-$arrcopy = $_POST['arrcopy'];
+// $arrcopy = $_POST['arrcopy'];
 $data = array();
 // $data_copy = array();
 
+
 // $arr = json_encode($arrproduct);
+// $arr_copy = json_encode($arrcopy);
 
 foreach ($arrproduct as $r) {
     $data[] = $r;
@@ -26,9 +28,7 @@ foreach ($get_store_code as $r) {
 
 $implode = implode("','", $data);
 
-$qq = "select a.*, (a.price - b.discount) afterdiscount, b.todate from pos_mproduct a
-inner join (select * from pos_mproductdiscount where date(now()) between fromdate and todate) b on a.sku = b.sku
-where a.sku in ('" . $implode . "')";
+$qq = "select * from pos_mproduct where isactived = '1' and sku in ('" . $implode . "') ";
 $statement = $connec->query($qq);
 
 $date_now = date('d/m/Y');
@@ -36,20 +36,12 @@ $date_now = date('d/m/Y');
 $products = array();
 $noarr = 0;
 foreach ($statement as $r) {
+    // looping for 
+    // for ($i = 0; $i < $data_copy[$noarr]; $i++) {
+        $products[] = $r['sku']."|".$r['name']."|".rupiah_pos($r['price'])."|".$date_now."|".$r['rack']."|".$r['shortcut']."|".rupiah_pos($r['harga_last'])."|".$r['tag']."|".$storecode."/".date('dmy')."|".$r['barcode'];
+    // }
+    // $products[] = $r['sku']."|".$r['name']."|".$r['price']."|".$date_now."|".$r['rack']."|".$r['shortcut']."|".$r['harga_last']."|".$r['tag']."|".$storecode."/".date('dmy')."|".$r['barcode'];
 
-    $copy = 1;
-
-    foreach ($arrcopy as $rcopy) {
-        if ($r['sku'] == $rcopy['sku']) {
-            $copy = $rcopy['copy'];
-        }
-    }
-
-    for ($i = 0; $i < $copy; $i++) {
-        $products[] = $r['sku'] . "|" . $r['name'] . "|" . $r['price'] . "|" . $date_now . "|" . $r['rack'] . "|" . $r['afterdiscount'] . "|" . $r['todate'] . "|" . $r['barcode'];
-    }
-
-    
     $noarr++;
 }
 

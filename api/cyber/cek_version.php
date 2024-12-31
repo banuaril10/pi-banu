@@ -39,7 +39,7 @@ foreach ($j_hasil as $key => $value) {
 
     $version = $value['version'];
     $updatedate = $value['updatedate'];
-    $link = $value['link'];
+    $link = $value['link_win'];
     $link_linux = $value['link_linux'];
     //update pos_mproduc
 }

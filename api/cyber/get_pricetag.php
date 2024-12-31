@@ -4,7 +4,10 @@
 $arrproduct = $_POST['arrproduct'];
 $arrcopy = $_POST['arrcopy'];
 $data = array();
-$data_copy = array();
+// $data_copy = array();
+
+//data copy is 
+// [{"sku":"8010014541","copy":"1"},{"sku":"8010014547","copy":"1"},{"sku":"8010014800","copy":"1"},{"sku":"8010014889","copy":"1"}]
 
 
 // $arr = json_encode($arrproduct);
@@ -14,9 +17,9 @@ foreach ($arrproduct as $r) {
     $data[] = $r;
 }
 
-foreach ($arrcopy as $r) {
-    $data_copy[] = $r;
-}
+// foreach ($arrcopy as $r) {
+//     $data_copy[] = $r;
+// }
 
 // print_r($data);
 
@@ -37,7 +40,22 @@ $products = array();
 $noarr = 0;
 foreach ($statement as $r) {
     // looping for 
-    for ($i = 0; $i < $data_copy[$noarr]; $i++) {
+    $copy = 1;
+    //data_copy is 
+    // [{"sku":"8010014541","copy":"1"},{"sku":"8010014547","copy":"1"},{"sku":"8010014800","copy":"1"},{"sku":"8010014889","copy":"1"}]
+
+    //looping data_copy and get copy value
+    foreach ($arrcopy as $rcopy) {
+        if ($r['sku'] == $rcopy['sku']) {
+            $copy = $rcopy['copy'];
+        }
+    }
+   
+
+    
+
+
+    for ($i = 0; $i < $copy; $i++) {
         $products[] = $r['sku']."|".$r['name']."|".$r['price']."|".$date_now."|".$r['rack']."|".$r['shortcut']."|".$r['harga_last']."|".$r['tag']."|".$storecode."/".date('dmy')."|".$r['barcode'];
     }
     // $products[] = $r['sku']."|".$r['name']."|".$r['price']."|".$date_now."|".$r['rack']."|".$r['shortcut']."|".$r['harga_last']."|".$r['tag']."|".$storecode."/".date('dmy')."|".$r['barcode'];
